@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { TablaArchivoDataSource } from './tabla-archivo-datasource';
 import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
@@ -10,8 +9,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class TablaArchivoComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;dataSource = new MatTableDataSource(ELEMENT_DATA);
-  //dataSource = new MatTableDataSource<any>(ELEMENT_DATA);
+  @ViewChild(MatSort) sort: MatSort;
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['select','id', 'name'];
