@@ -9,4 +9,6 @@ export class DashboardComponent {
   cards = [
     { title: 'Card 1', cols: 2, rows: 1 }
   ];
+
+  
 }

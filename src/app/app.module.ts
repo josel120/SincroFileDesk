@@ -6,12 +6,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule, MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatInputModule, MatCheckboxModule } from '@angular/material';
 import { TablaArchivoComponent } from './components/tabla-archivo/tabla-archivo.component';
+import { HttpClientModule } from '@angular/common/http';
+import { LoginComponent } from './components/login/login.component';
+import { appRoutingProviders, routing } from './/app-routing.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    TablaArchivoComponent
+    TablaArchivoComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -26,9 +30,13 @@ import { TablaArchivoComponent } from './components/tabla-archivo/tabla-archivo.
     MatSortModule,
     MatFormFieldModule,
     MatInputModule,
-    MatCheckboxModule   
+    MatCheckboxModule,
+    HttpClientModule,
+    routing   
   ],
-  providers: [],
+  providers: [
+    appRoutingProviders
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

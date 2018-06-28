@@ -9,12 +9,12 @@ app.on('ready', function () {
   win = new BrowserWindow({width: 1000, height: 600});
 
   // Specify entry point
-  win.loadURL('http://localhost:4000');
+  win.loadURL('http://localhost:4200');
   //win.loadURL(`file://${__dirname}/dist/index.html`);
 
   // Show dev tools
   // Remove this line before distributing
-  win.webContents.openDevTools()
+  //win.webContents.openDevTools()
 
   // Remove window once app is closed
   win.on('closed', function () {
