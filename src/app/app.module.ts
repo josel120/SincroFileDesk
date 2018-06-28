@@ -9,6 +9,7 @@ import { TablaArchivoComponent } from './components/tabla-archivo/tabla-archivo.
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { appRoutingProviders, routing } from './/app-routing.module';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { appRoutingProviders, routing } from './/app-routing.module';
     MatInputModule,
     MatCheckboxModule,
     HttpClientModule,
-    routing   
+    routing,
+    FormsModule         
   ],
   providers: [
     appRoutingProviders

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +47,17 @@ export class PruebaService {
     return this.http.post<any>('http://localhost:3000/api/fileSincro/', carpeta);
   }
 
+  login(user_to_login:any): Observable<any>{
+    let user = JSON.stringify(user_to_login);
+    //let params = {user:json};
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+  //      'Authorization': 'my-auth-token'
+      })
+    };
+    return this.http.post<any>('http://localhost:3000/api/login/', user, httpOptions)
+      .pipe(map(res => JSON.parse(res)));
+  }
 //////////////////////////////////////////////////////////
 }
