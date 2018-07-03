@@ -10,6 +10,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './components/login/login.component';
 import { appRoutingProviders, routing } from './/app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,9 @@ import { FormsModule } from '@angular/forms';
     MatCheckboxModule,
     HttpClientModule,
     routing,
-    FormsModule         
+    FormsModule,
+    ToastrModule,
+    ToastrModule.forRoot(),         
   ],
   providers: [
     appRoutingProviders

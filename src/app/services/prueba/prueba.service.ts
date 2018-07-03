@@ -64,14 +64,15 @@ export class PruebaService {
 
   loginCloud(user_to_login:any): Observable<any>{
     let user = JSON.stringify(user_to_login);
+    let params = "user="+user;
     const httpOptions = {
       headers: new HttpHeaders({
-        'Content-Type':  'application/json',
+        'Content-Type':  'application/x-www-form-urlencoded',
   //      'Authorization': 'my-auth-token'
       })
     };
-    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/nlogin.php`, user, httpOptions)
-      .pipe(map(res => JSON.parse(res))); 
+    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/nlogin.php`, params, httpOptions)
+      .pipe(map(res => res)); 
   }
 //////////////////////////////////////////////////////////  
 }

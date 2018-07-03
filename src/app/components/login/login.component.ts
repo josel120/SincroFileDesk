@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PruebaService } from '../../services/prueba/prueba.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -8,12 +9,12 @@ import { PruebaService } from '../../services/prueba/prueba.service';
 })
 export class LoginComponent implements OnInit {
   public user;
+  public identity;
 
-  constructor(private prueba:PruebaService) { 
+  constructor(public toastr: ToastrService, private prueba:PruebaService) { 
     this.user = {
-      "email":"",
-      "password":"",
-      "gethash":"false"
+      "iduser":"",
+      "password":""
     };
   }
 
@@ -24,9 +25,21 @@ export class LoginComponent implements OnInit {
     console.log(this.user);
     //this.prueba.login(this.user).subscribe((response) =>{
       this.prueba.loginCloud(this.user).subscribe((response) =>{
-        let identificador = response;
-        console.log(identificador);
+        //let identificador = response.id;
+        // console.log('identificador',identificador);
+      this.identity = response.id;
+      console.log(response['error'] == "true");
+      if(response['error']){
+        this.toastr.error('everything is broken', 'Major Error', {
+          timeOut: 3000,
+        });
+        //this.toastr.success('Hello world!', 'Toastr fun!');
+      }
+      //localStorage.setItem('identity', this.identity);
       }
     );
+  }
+  showError() {
+    this.toastr.error('This is not good!', 'Oops!');
   }
 }
