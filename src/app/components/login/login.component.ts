@@ -22,9 +22,10 @@ export class LoginComponent implements OnInit {
 
   onSubmit(){
     console.log(this.user);
-    this.prueba.login(this.user).subscribe((response) =>{
-        //let identificador = response;
-        //console.log(identificador);
+    //this.prueba.login(this.user).subscribe((response) =>{
+      this.prueba.loginCloud(this.user).subscribe((response) =>{
+        let identificador = response;
+        console.log(identificador);
       }
     );
   }

@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class DashboardComponent {
   cards = [
-    { title: 'Card 1', cols: 2, rows: 1 }
+    { title: '', cols: 2, rows: 1 }
   ];
 
   
