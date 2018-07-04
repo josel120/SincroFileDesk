@@ -1,14 +1,32 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { PruebaService } from '../../services/prueba/prueba.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit{ 
+  public mostrarNombre;
+
+  constructor(private router:Router){
+    this.mostrarNombre = localStorage.getItem('email');
+    console.log(this.mostrarNombre);
+    console.log('nuevo');
+  }
+  ngOnInit(){
+    this.redirectIfLogin();
+    
+  }
   cards = [
     { title: '', cols: 2, rows: 1 }
   ];
 
+  redirectIfLogin(){
+    if(localStorage.getItem('identity') == null)
+      this.router.navigate(["/login"]);    
+  }
   
 }

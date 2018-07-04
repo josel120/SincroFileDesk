@@ -1,3 +1,4 @@
+
 <mat-form-field>
   <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
 </mat-form-field>
@@ -19,17 +20,9 @@
         </mat-checkbox>
       </mat-cell>
     </ng-container>
-    
-    <!-- Id Column -->
-    <!--
     <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.position}}</mat-cell>
-    </ng-container>
-    -->
-    <ng-container matColumnDef="tipo_rg">
       <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.tipo_rg}}</mat-cell>
+      <mat-cell *matCellDef="let row">{{row.symbol}}</mat-cell>
     </ng-container>
     <!-- Name Column -->
     <ng-container matColumnDef="nombre">

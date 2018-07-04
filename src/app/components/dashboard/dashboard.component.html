@@ -1,15 +1,15 @@
 <div class="grid-container">
   <h1 class="mat-h1">Dashboard</h1>
-  <input type="file" />
+  <!-- <input type="file" /> con esto se ven los archivos de la PC Local-->
   <mat-grid-list cols="2" rowHeight="6500px">
     <mat-grid-tile *ngFor="let card of cards" [colspan]="card.cols" [rowspan]="card.rows">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            {{card.title}}
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
+            <div><button mat-icon-button>{{mostrarNombre}}</button></div>
             <mat-menu #menu="matMenu" xPosition="before">
               <button mat-menu-item>Expand</button>
               <button mat-menu-item>Remove</button>

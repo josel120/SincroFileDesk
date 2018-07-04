@@ -8,8 +8,7 @@ export class AuthGuardService implements CanActivate {
 
   constructor() { }
 
-  canActivate(){
-    
+  canActivate(){    
     return true;
   }
 }

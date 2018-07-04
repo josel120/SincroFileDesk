@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PruebaService } from '../../services/prueba/prueba.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   public user;
   public identity;
 
-  constructor(public toastr: ToastrService, private prueba:PruebaService) { 
+  constructor(public toastr: ToastrService, private prueba:PruebaService, private router:Router) { 
     this.user = {
       "iduser":"",
       "password":""
@@ -19,27 +20,29 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.redirectIfLogin();
   }
 
   onSubmit(){
-    console.log(this.user);
-    //this.prueba.login(this.user).subscribe((response) =>{
-      this.prueba.loginCloud(this.user).subscribe((response) =>{
-        //let identificador = response.id;
-        // console.log('identificador',identificador);
-      this.identity = response.id;
-      console.log(response['error'] == "true");
-      if(response['error']){
-        this.toastr.error('everything is broken', 'Major Error', {
-          timeOut: 3000,
-        });
-        //this.toastr.success('Hello world!', 'Toastr fun!');
-      }
-      //localStorage.setItem('identity', this.identity);
+    this.prueba.loginCloud(this.user).subscribe((response) =>{
+        this.identity = response.id;
+        if(response['error']){
+          this.toastr.error(response['message'], 'Error', {
+            timeOut: 3000,
+          });
+        }else{
+          this.toastr.success(response['message'], 'Success');
+          localStorage.setItem('identity', response.id);
+          localStorage.setItem('email', this.user['iduser']);
+          this.router.navigate(['/']);
+        }
       }
     );
   }
-  showError() {
-    this.toastr.error('This is not good!', 'Oops!');
+
+  redirectIfLogin(){
+    if(localStorage.getItem('identity') != null)
+      this.router.navigate(["/"]);
+    
   }
 }

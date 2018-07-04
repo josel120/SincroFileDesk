@@ -11,13 +11,16 @@ import { LoginComponent } from './components/login/login.component';
 import { appRoutingProviders, routing } from './/app-routing.module';
 import { FormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { TablaVainaComponent } from './components/tabla-vaina/tabla-vaina.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
     TablaArchivoComponent,
-    LoginComponent
+    LoginComponent,
+    TablaVainaComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { ToastrModule } from 'ngx-toastr';
     routing,
     FormsModule,
     ToastrModule,
-    ToastrModule.forRoot(),         
+    ToastrModule.forRoot(),
+    NgxSpinnerModule
   ],
   providers: [
     appRoutingProviders

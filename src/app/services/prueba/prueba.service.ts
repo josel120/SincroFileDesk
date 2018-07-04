@@ -11,26 +11,6 @@ export class PruebaService {
   name: string;
   constructor(private http: HttpClient) {}
 
-  getAllCats(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:3000/api/dowork');
-  }
-
-  getCat(name: string): Observable<any> {
-    return this.http.get<any>('http://localhost:3000/api/dowork/' + name);
-  }
-
-  insertCat(cat: any): Observable<any> {
-    return this.http.post<any>('http://localhost:3000/api/dowork/', cat);
-  }
-
-  updateCat(cat: any): Observable<void> {
-    return this.http.put<void>('http://localhost:3000/api/dowork/' + 'jose', 'vaina');
-  }
-
-  deleteCat(name: string) {
-    return this.http.delete('http://localhost:3000/api/dowork/' + name);
-  }
-
 //////////////////////////////////////////////////////////
 ////fileSincro
   // ver archivos de una ubicacion origen
@@ -73,6 +53,19 @@ export class PruebaService {
     };
     return this.http.post<any>(`${GLOBAL.apiUrlCloud}/nlogin.php`, params, httpOptions)
       .pipe(map(res => res)); 
+  }
+
+  listFileCloud(idUser:any): Observable<any>{
+    let user = JSON.stringify(idUser);
+    let params = "user="+user;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/x-www-form-urlencoded',
+  //      'Authorization': 'my-auth-token'
+      })
+    };
+    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/nlistarCarpetaArchivo.php`, params, httpOptions)
+      .pipe(map(res => res));
   }
 //////////////////////////////////////////////////////////  
 }

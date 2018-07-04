@@ -1,34 +1,33 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
-import { SelectionModel } from '@angular/cdk/collections';
 import { PruebaService } from '../../services/prueba/prueba.service';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { DatosArchivos } from '../../interfaces/datos-archivos';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
-  selector: 'tabla-archivo',
-  templateUrl: './tabla-archivo.component.html',
-  styleUrls: ['./tabla-archivo.component.css']
+  selector: 'app-tabla-vaina',
+  templateUrl: './tabla-vaina.component.html',
+  styleUrls: ['./tabla-vaina.component.css']
 })
-export class TablaArchivoComponent implements OnInit {
-    private element_Data: DatosArchivos[];
+export class TablaVainaComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   private archivos; 
+  public dataVaina:PeriodicElement[] = [];
 
   constructor(private prueba: PruebaService, private spinner: NgxSpinnerService) { 
-    this.element_Data = []; 
   }
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['select','tipo_rg','nombre'];
+  displayedColumns = ['select','id','nombre'];
 
   ngOnInit() {
     this.spinner.show();
-    this.archivos = new MatTableDataSource(this.element_Data);
+    this.archivos = new MatTableDataSource(this.dataVaina);
+    console.log('vaina loca',this.archivos);
+    this.archivos.paginator = this.paginator;    
+    this.archivos.sort = this.sort;
     this.listFile({"iduser": localStorage.getItem('identity')});
-    this.archivos.paginator = this.paginator;
-    this.archivos.sort = this.sort;   
   }
 
   selection = new SelectionModel<any>(true, []);
@@ -52,10 +51,22 @@ export class TablaArchivoComponent implements OnInit {
     this.archivos.filter = filterValue;
   }
   listFile(idUser){
-    this.prueba.listFileCloud(idUser).subscribe((x) => {
-      this.archivos.data = x ;
-      this.spinner.hide();
-    });
+    //this.loading = true;
+    this.prueba.listFileCloud(idUser).subscribe((x:PeriodicElement) => {
+      this.archivos.data = x ; 
+      console.log('hry',this.archivos);     
+      setTimeout(() => {
+        this.spinner.hide();
+      }, 2000);      
+      });
   }
   
 }
+export interface PeriodicElement {
+  nombre: string;
+  tipo_rg: string;
+  id: string;
+  nivel:string;
+  path:string;
+}
+
