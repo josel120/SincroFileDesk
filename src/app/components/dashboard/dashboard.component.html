@@ -9,10 +9,10 @@
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
-            <div><button mat-icon-button>{{mostrarNombre}}</button></div>
+            <!-- <div><button mat-icon-button>{{mostrarNombre}}</button></div> -->
             <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
+              <button mat-menu-item>{{mostrarNombre}}</button>
+              <button mat-menu-item (click)="cerrarSesion()">Salir</button>
             </mat-menu>
           </mat-card-title>
         </mat-card-header>

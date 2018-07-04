@@ -28,5 +28,10 @@ export class DashboardComponent implements OnInit{
     if(localStorage.getItem('identity') == null)
       this.router.navigate(["/login"]);    
   }
+  cerrarSesion(){
+    localStorage.removeItem('email');
+    localStorage.removeItem('identity');
+    this.router.navigate(["/login"]);
+  }
   
 }
