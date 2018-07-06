@@ -6,7 +6,11 @@ let win = null;
 app.on('ready', function () {
 
   // Initialize the window to our specified dimensions
-  win = new BrowserWindow({width: 1000, height: 600});
+  win = new BrowserWindow({
+    width: 1000, 
+    height: 600,
+    webPreferences: {webSecurity: false}
+  });
 
   // Specify entry point
   win.loadURL('http://localhost:4200');
@@ -20,6 +24,9 @@ app.on('ready', function () {
   win.on('closed', function () {
     win = null;
   });
+
+  //Quitar menu por Default
+  win.setMenu(null);
 
 });
 

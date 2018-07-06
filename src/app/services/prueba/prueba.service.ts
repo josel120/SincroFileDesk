@@ -9,10 +9,22 @@ import { GLOBAL } from '../../app.config';
 })
 export class PruebaService {
   name: string;
-  constructor(private http: HttpClient) {}
-
-//////////////////////////////////////////////////////////
-////fileSincro
+  private httpOptions;
+  constructor(private http: HttpClient) {
+    this.httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/x-www-form-urlencoded',
+      //  'Content-Type':  'text/plain',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, HEAD',        
+        'Access-Control-Allow-Origin': '*',
+      //'Authorization': 'my-auth-token'
+      })
+    };
+  }
+  
+   
+  //////////////////////////////////////////////////////////
+  ////fileSincro
   // ver archivos de una ubicacion origen
   getFilesSource(): Observable<any[]> {
     return this.http.get<any[]>('http://localhost:3000/api/fileSincro');
@@ -27,45 +39,40 @@ export class PruebaService {
   sincronizar(carpeta: any): Observable<any> {
     return this.http.post<any>('http://localhost:3000/api/fileSincro/', carpeta);
   }
-/*
-  login(user_to_login:any): Observable<any>{
-    let user = JSON.stringify(user_to_login);
-    //let params = {user:json};
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-  //      'Authorization': 'my-auth-token'
-      })
-    };
-    return this.http.post<any>(`${GLOBAL.apiUrlLocal}/api/login/`, user, httpOptions)
-      .pipe(map(res => JSON.parse(res)));
-  }
-  */
 
+  //////////////////////////////////////////////////////////
   loginCloud(user_to_login:any): Observable<any>{
     let user = JSON.stringify(user_to_login);
-    let params = "user="+user;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/x-www-form-urlencoded',
-  //      'Authorization': 'my-auth-token'
-      })
-    };
-    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/nlogin.php`, params, httpOptions)
+    let params = "user="+user;    
+    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/nlogin.php`, params, this.httpOptions)
       .pipe(map(res => res)); 
   }
 
   listFileCloud(idUser:any): Observable<any>{
     let user = JSON.stringify(idUser);
     let params = "user="+user;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/x-www-form-urlencoded',
-  //      'Authorization': 'my-auth-token'
-      })
-    };
-    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/nlistarCarpetaArchivo.php`, params, httpOptions)
+    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/nlistarCarpetaArchivo.php`, params, this.httpOptions)
       .pipe(map(res => res));
   }
-//////////////////////////////////////////////////////////  
+
+  olvidarPassword(data){
+    let user = JSON.stringify(data);
+    let params = "user="+user;
+    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/ngpassword.php`, params, this.httpOptions)
+      .pipe(map(res => res));
+  }
+
+  verificarPassword(data){
+    let user = JSON.stringify(data);
+    let params = "user="+user;
+    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/ngpassword.php`, params, this.httpOptions)
+      .pipe(map(res => res));
+  }
+
+  changePassword(data){
+    let user = JSON.stringify(data);
+    let params = "user="+user;
+    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/ngpassword.php`, params, this.httpOptions)
+      .pipe(map(res => res));
+  }
 }

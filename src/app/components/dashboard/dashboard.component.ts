@@ -13,8 +13,6 @@ export class DashboardComponent implements OnInit{
 
   constructor(private router:Router){
     this.mostrarNombre = localStorage.getItem('email');
-    console.log(this.mostrarNombre);
-    console.log('nuevo');
   }
   ngOnInit(){
     this.redirectIfLogin();

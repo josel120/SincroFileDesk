@@ -13,7 +13,7 @@ export class TablaVainaComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  private archivos; 
+  public archivos; 
   public dataVaina:PeriodicElement[] = [];
 
   constructor(private prueba: PruebaService, private spinner: NgxSpinnerService) { 

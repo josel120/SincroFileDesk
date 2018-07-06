@@ -15,7 +15,7 @@ export class TablaArchivoComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  private archivos; 
+  public archivos; 
 
   constructor(private prueba: PruebaService, private spinner: NgxSpinnerService) { 
     this.element_Data = []; 
