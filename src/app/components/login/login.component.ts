@@ -20,8 +20,7 @@ export class LoginComponent implements OnInit {
   constructor(public toastr: ToastrService, 
     private prueba:PruebaService, 
     private router:Router, 
-    public dialog: MatDialog,
-    public dialog2: MatDialog) { 
+    public dialog: MatDialog) { 
       this.user = {
         "iduser":"",
         "password":""
@@ -73,49 +72,6 @@ export class LoginComponent implements OnInit {
     const dialogRef = this.dialog.open(OlvidarPasswordModelComponent, {
       data: {codigo: this.codigo}
     });    
-    console.log('codigo codigo',this.codigo);
-    dialogRef.afterClosed().subscribe(result => {
-      this.codigo = result;
-      this.verificarCodigo(email);
-    });
-  }
-
-  verificarCodigo(email){
-    console.log('verificarCodigo');
-    console.log(this.codigo);
-    this.prueba.verificarPassword({"a":"V","var1": email,"var2":this.codigo}).subscribe((response) =>{
-        if(response){
-          this.toastr.success(response['response']['message'], 'Success');
-          this.cambiarPassword(response['response']['id']);
-        }else{
-          this.toastr.error("Datos invalido", 'Error');
-        }
-      }
-    );
-  }
-
-  // colocar password nuevo
-  cambiarPassword(idUser){
-    console.log('cambiarPassword');
-    this.prueba.changePassword({"a":"A","var1": idUser,"var2":this.password}).subscribe((response) =>{
-        if(response){
-          this.toastr.success(response['response']['message'], 'Success');
-          this.openDialogPassword();
-        }else{
-          this.toastr.error("Datos invalido", 'Error');
-        }
-      }
-    );
-  }
-
-  //colocar password nuevo
-  openDialogPassword(): void {
-    const dialogRef = this.dialog2.open(ChangePasswordModelComponent, {
-      data: {password: this.password}
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      this.password = result;
-    });
+    localStorage.setItem('email',email);
   }
 }
