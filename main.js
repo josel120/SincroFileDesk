@@ -36,8 +36,26 @@ app.on('activate', () => {
   }
 })
 
+
+
+resultPromise.then(() => console.log("It worked!"), (e) => console.log(`No dice: ${e.message}`));
+
 app.on('window-all-closed', function () {
   if (process.platform != 'darwin') {
     app.quit();
   }
 });
+
+ //handle setupevents as quickly as possible
+ const setupEvents = require('./installers/setupEvents')
+ if (setupEvents.handleSquirrelEvent()) {
+    // squirrel event handled and app will exit in 1000ms, so don't do anything else
+    return;
+ }
+
+// lo puse alfinal
+const electron = require('electron')
+// Module to control application life.
+const app = electron.app
+const {ipcMain} = require('electron')
+var path = require('path')

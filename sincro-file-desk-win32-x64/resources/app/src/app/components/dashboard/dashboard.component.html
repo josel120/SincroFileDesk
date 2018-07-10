@@ -1,0 +1,26 @@
+<div class="grid-container">
+  <h1 class="mat-h1">Dashboard</h1>
+  <!-- <input type="file" /> con esto se ven los archivos de la PC Local-->
+  <mat-grid-list cols="2" rowHeight="6500px">
+    <mat-grid-tile *ngFor="let card of cards" [colspan]="card.cols" [rowspan]="card.rows">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <!-- <div><button mat-icon-button>{{mostrarNombre}}</button></div> -->
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>{{mostrarNombre}}</button>
+              <button mat-menu-item (click)="cerrarSesion()">Salir</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+          <!-- <div>Card Content Here</div> -->
+          <tabla-archivo></tabla-archivo>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
