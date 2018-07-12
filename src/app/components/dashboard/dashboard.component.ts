@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PruebaService } from '../../services/prueba/prueba.service';
 
 @Component({
   selector: 'dashboard',
@@ -8,12 +9,14 @@ import { Router } from '@angular/router';
 })
 export class DashboardComponent implements OnInit{ 
   public mostrarNombre;
+  message:string;
 
-  constructor(private router:Router){
+  constructor(private router:Router, private data: PruebaService){
     this.mostrarNombre = localStorage.getItem('email');
   }
   ngOnInit(){
     this.redirectIfLogin();
+    this.data.currentMessage.subscribe(message => this.message = message);
   }
   cards = [
     { title: '1', cols: 1, rows: 1 },
@@ -29,5 +32,6 @@ export class DashboardComponent implements OnInit{
     localStorage.removeItem('identity');
     this.router.navigate(["/login"]);
   }
+
   
 }

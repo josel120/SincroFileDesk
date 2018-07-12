@@ -4,7 +4,8 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { PruebaService } from '../../services/prueba/prueba.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { DatosArchivos } from '../../interfaces/datos-archivos';
-
+import { Observable, BehaviorSubject } from 'rxjs';
+ 
 @Component({
   selector: 'app-tabla-detalles',
   templateUrl: './tabla-detalles.component.html',
@@ -14,7 +15,8 @@ export class TablaDetallesComponent implements OnInit {
   private element_Data: DatosArchivos[];
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  public archivos; 
+  public archivos;
+  message:string;
 
   constructor(private prueba: PruebaService, private spinner: NgxSpinnerService) { 
     this.element_Data = []; 
@@ -25,9 +27,10 @@ export class TablaDetallesComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.archivos = new MatTableDataSource(this.element_Data);
-    //this.listPrincipalFileCloud({"iduser": localStorage.getItem('identity')});
+    this.listPrincipalFileCloud({"iduser": localStorage.getItem('identity')});
     this.archivos.paginator = this.paginator;
     this.archivos.sort = this.sort;   
+    
   }
 
   selection = new SelectionModel<any>(true, []);
@@ -57,13 +60,29 @@ export class TablaDetallesComponent implements OnInit {
     });
   }
 
-  vaina(row){    
+  listContentFileCloud(row){  
+    this.prueba.changeMessage("Hello from tabla-detalles"); 
+    console.log('principal',this.archivos.data[0]); 
     this.prueba.listContentFileCloud(row).subscribe((x) => {
       this.archivos.data = x ;
       console.log(x);
       //this.displayedColumns.push('vaina');
       this.spinner.hide();
     });
+  }
+  verDetalles(row){
+    if(row.tipo_rg == 'carpeta'){
+      this.listContentFileCloud(row);
+    }
+    else{
+      console.log("ver detalles de archivo");
+      this.downloadFileCloud(row);
+    }
+  }
+  downloadFileCloud(row){
+    console.log(row);
+    //this.prueba.downloadFileCloud().subscribe();
+    this.prueba.downloadFile(row).subscribe((x)=>{console.log(x)});
   }
 
 }

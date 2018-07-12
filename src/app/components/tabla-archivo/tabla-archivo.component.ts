@@ -11,8 +11,8 @@ import { DatosArchivos } from '../../interfaces/datos-archivos';
   styleUrls: ['./tabla-archivo.component.css']
 })
 export class TablaArchivoComponent implements OnInit {
-    private element_Data: DatosArchivos[];
-    public mostrar
+    private element_Data: DatosArchivos[];     
+    message:string;
     
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -20,7 +20,6 @@ export class TablaArchivoComponent implements OnInit {
 
   constructor(private prueba: PruebaService, private spinner: NgxSpinnerService) { 
     this.element_Data = []; 
-    this.mostrar = false;
   }
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['select','tipo_rg','nombre'];
@@ -69,6 +68,7 @@ export class TablaArchivoComponent implements OnInit {
   }
 
   vaina(row){
+    this.prueba.changeMessage("Hello from tabla-archivo");
     console.log('row',row);
     this.prueba.listContentFileCloud(row).subscribe((x) => {
       //this.archivos.data = x ;
@@ -77,4 +77,14 @@ export class TablaArchivoComponent implements OnInit {
       this.spinner.hide();
     });
   }
+  listContentFileCloud(row){
+    this.prueba.listContentFileCloud(row).subscribe((x) => {
+      this.prueba.changeMessage(x);
+      //this.archivos.data = x ;
+      //console.log(x);
+      //this.displayedColumns.push('vaina');
+      this.spinner.hide();
+    });
+  }
+  
 }

@@ -5,6 +5,7 @@
 -->
 <ngx-spinner></ngx-spinner>
 <div class="mat-elevation-z8">
+    <a href="1251354216241621.txt" download="your-foo.txt">Download Your Foo</a>
   <mat-table #table [dataSource]="archivos" matSort aria-label="Elements" >
     <!-- Checkbox Column -->
     <ng-container matColumnDef="select">
@@ -24,12 +25,12 @@
     <!-- Tipo de Item -->
     <ng-container matColumnDef="tipo_rg" >
       <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</mat-header-cell>
-      <mat-cell *matCellDef="let row" (click)="vaina(row)" >{{row.tipo_rg}}</mat-cell>
+      <mat-cell *matCellDef="let row" (click)="listContentFileCloud(row)" >{{row.tipo_rg}}</mat-cell>
     </ng-container>
     <!-- Name Column -->
     <ng-container matColumnDef="nombre">
       <mat-header-cell *matHeaderCellDef mat-sort-header>nombre</mat-header-cell>
-      <mat-cell *matCellDef="let row" (click)="vaina(row)" >{{row.nombre}}</mat-cell>
+      <mat-cell *matCellDef="let row" (click)="listContentFileCloud(row)" >{{row.nombre}}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

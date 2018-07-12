@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { GLOBAL } from '../../app.config';
@@ -10,6 +10,9 @@ import { GLOBAL } from '../../app.config';
 export class PruebaService {
   name: string;
   private httpOptions;
+  private mensajeSource = new BehaviorSubject<any>("default message");
+  currentMessage = this.mensajeSource.asObservable();
+
   constructor(private http: HttpClient) {
     this.httpOptions = {
       headers: new HttpHeaders({
@@ -21,7 +24,9 @@ export class PruebaService {
       })
     };
   }
-  
+  changeMessage(message: any){
+    this.mensajeSource.next(message);
+  }
    
   //////////////////////////////////////////////////////////
   ////fileSincro
@@ -92,6 +97,29 @@ export class PruebaService {
     let user = JSON.stringify(idUser);
     let params = "user="+user;
     return this.http.post<any>(`${GLOBAL.apiUrlCloud}/nlistarContenidoCarpeta.php`, params, this.httpOptions)
+      .pipe(map(res => res));
+  }
+
+  // ver Detalles del Archivo Especifica
+  detailsFileCloud(idUser:any): Observable<any>{
+    let user = JSON.stringify(idUser);
+    let params = "user="+user;
+    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/ngetItem.php`, params, this.httpOptions)
+      .pipe(map(res => res));
+  }
+
+  // Descargar archivos
+  /*downloadFile(row): Observable<any> {    
+    let user = JSON.stringify(row);
+    let params = "user="+user;
+    return this.http.post<any>(`http://localhost:3000/api/download`, params, this.httpOptions)
+      .pipe(map(res => res));
+  }*/
+
+  downloadFile(row): Observable<any> {    
+    let user = JSON.stringify(row);
+    let params = "user="+user;
+    return this.http.post<any>(`http://localhost:3000/api/vaina`, params, this.httpOptions)
       .pipe(map(res => res));
   }
 }

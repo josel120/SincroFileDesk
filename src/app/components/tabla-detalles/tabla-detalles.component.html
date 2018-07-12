@@ -24,12 +24,12 @@
     <!-- Tipo de Item -->
     <ng-container matColumnDef="tipo_rg" >
       <mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.tipo_rg}}</mat-cell>
+      <mat-cell *matCellDef="let row" (click)="verDetalles(row)">{{row.tipo_rg}}</mat-cell>
     </ng-container>
     <!-- Name Column -->
     <ng-container matColumnDef="nombre">
       <mat-header-cell *matHeaderCellDef mat-sort-header>nombre</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.nombre}}</mat-cell>
+      <mat-cell *matCellDef="let row" (click)="verDetalles()">{{row.nombre}}</mat-cell>
     </ng-container>
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
