@@ -13,6 +13,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { OlvidarPasswordModelComponent } from './model/olvidar-password-model/olvidar-password-model.component';
 import { ChangePasswordModelComponent } from './model/change-password-model/change-password-model.component';
+import { TablaDetallesComponent } from './components/tabla-detalles/tabla-detalles.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ChangePasswordModelComponent } from './model/change-password-model/chan
     TablaArchivoComponent,
     LoginComponent,
     OlvidarPasswordModelComponent,
-    ChangePasswordModelComponent
+    ChangePasswordModelComponent,
+    TablaDetallesComponent
   ],
   imports: [
     BrowserModule,

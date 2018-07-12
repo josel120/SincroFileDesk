@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output, EventEmitter } from '@angular/core';
 import { MatPaginator, MatSort, MatTableDataSource } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import { PruebaService } from '../../services/prueba/prueba.service';
@@ -12,13 +12,15 @@ import { DatosArchivos } from '../../interfaces/datos-archivos';
 })
 export class TablaArchivoComponent implements OnInit {
     private element_Data: DatosArchivos[];
-
+    public mostrar
+    
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   public archivos; 
 
   constructor(private prueba: PruebaService, private spinner: NgxSpinnerService) { 
     this.element_Data = []; 
+    this.mostrar = false;
   }
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['select','tipo_rg','nombre'];
@@ -26,9 +28,9 @@ export class TablaArchivoComponent implements OnInit {
   ngOnInit() {
     this.spinner.show();
     this.archivos = new MatTableDataSource(this.element_Data);
-    this.listFile({"iduser": localStorage.getItem('identity')});
+    this.listPrincipalFileCloud({"iduser": localStorage.getItem('identity')});
     this.archivos.paginator = this.paginator;
-    this.archivos.sort = this.sort;   
+    this.archivos.sort = this.sort; 
   }
 
   selection = new SelectionModel<any>(true, []);
@@ -51,11 +53,28 @@ export class TablaArchivoComponent implements OnInit {
     filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
     this.archivos.filter = filterValue;
   }
+  /*
   listFile(idUser){
     this.prueba.listFileCloud(idUser).subscribe((x) => {
       this.archivos.data = x ;
       this.spinner.hide();
     });
   }
-  
+  */
+  listPrincipalFileCloud(idUser){
+    this.prueba.listPrincipalFileCloud(idUser).subscribe((x) => {
+      this.archivos.data = x ;
+      this.spinner.hide();
+    });
+  }
+
+  vaina(row){
+    console.log('row',row);
+    this.prueba.listContentFileCloud(row).subscribe((x) => {
+      //this.archivos.data = x ;
+      console.log(x);
+      //this.displayedColumns.push('vaina');
+      this.spinner.hide();
+    });
+  }
 }

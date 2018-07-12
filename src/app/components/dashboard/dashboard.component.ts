@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { PruebaService } from '../../services/prueba/prueba.service';
-import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'dashboard',
@@ -16,10 +14,10 @@ export class DashboardComponent implements OnInit{
   }
   ngOnInit(){
     this.redirectIfLogin();
-    
   }
   cards = [
-    { title: '', cols: 2, rows: 1 }
+    { title: '1', cols: 1, rows: 1 },
+    { title: '2', cols: 1, rows: 2 },
   ];
 
   redirectIfLogin(){

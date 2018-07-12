@@ -48,13 +48,6 @@ export class PruebaService {
       .pipe(map(res => res)); 
   }
 
-  listFileCloud(idUser:any): Observable<any>{
-    let user = JSON.stringify(idUser);
-    let params = "user="+user;
-    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/nlistarCarpetaArchivo.php`, params, this.httpOptions)
-      .pipe(map(res => res));
-  }
-
   olvidarPassword(data){
     let user = JSON.stringify(data);
     let params = "user="+user;
@@ -73,6 +66,32 @@ export class PruebaService {
     let user = JSON.stringify(data);
     let params = "user="+user;
     return this.http.post<any>(`${GLOBAL.apiUrlCloud}/ngpassword.php`, params, this.httpOptions)
+      .pipe(map(res => res));
+  }
+
+  // Listar Archivos y carpetas
+  /*
+  listFileCloud(idUser:any): Observable<any>{
+    let user = JSON.stringify(idUser);
+    let params = "user="+user;
+    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/nlistarCarpetaArchivo.php`, params, this.httpOptions)
+      .pipe(map(res => res));
+  }
+  */
+
+  //Listar Carpetas y Archivos Principal
+  listPrincipalFileCloud(idUser:any): Observable<any>{
+    let user = JSON.stringify(idUser);
+    let params = "user="+user;
+    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/nlistarCarpetaPrincipal.php`, params, this.httpOptions)
+      .pipe(map(res => res));
+  }
+
+  // Listar Contenido de Carpeta Especifica
+  listContentFileCloud(idUser:any): Observable<any>{
+    let user = JSON.stringify(idUser);
+    let params = "user="+user;
+    return this.http.post<any>(`${GLOBAL.apiUrlCloud}/nlistarContenidoCarpeta.php`, params, this.httpOptions)
       .pipe(map(res => res));
   }
 }
